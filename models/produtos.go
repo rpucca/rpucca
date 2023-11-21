@@ -1,26 +1,26 @@
-package main
+package models
 
-import {
-	"fmt"           //biblioteca para impressões
-	"html/template" //biblioteca para processar e renderizar templates HTML
-	"net/http"      //biblioteca funcionalidades para criar servidores HTTP
+import (
+	"fmt"
+
+	"github.com/rpucca/rpucca/db"
+)
+
+type strProduto struct {
+	Id         int
+	Nome       string
+	Descricao  string
+	Preco      float64
+	Quantidade int
 }
 
-var templ = template.Must(template.ParseGlob("templates/*.html")) //encapsula todos os templates (*.html) renderizando e retornando o template e msg de erro se houver.
-
-func main() {
-	http.HandleFunc("/", index) //acessa a raiz ("/") do servidor, e executa a função index
-	fmt.Println(templ)
-	http.ListenAndServe(":8000", nil) //sobe o servidor porta 8080
-}
-
-func index(w http.ResponseWriter, r *http.Request) {
+func BuscaTodosOsProdutos() []strProduto {
 	var int_id, int_quantidade int
 	var str_nome, str_descricao string
 	var flo_preco float64
 	linha_produto := strProduto{}   //instancia da estrutura produtos
 	array_produto := []strProduto{} //array de produtos
-	db := conectaComBancoDeDados()
+	db := db.ConectaComBancoDeDados()
 
 	fmt.Println("Início")
 	selectDeTodosOsProdutos, registro := db.Query("select * from produtos")
@@ -50,9 +50,6 @@ func index(w http.ResponseWriter, r *http.Request) {
 	*/
 
 	templ.ExecuteTemplate(w, "Index", array_produto)
-	defer db.Close()  //com defer o close é adiada até que a função exemplo() seja concluída.
+	defer db.Close() //com defer o close é adiada até que a função exemplo() seja concluída.
 	fmt.Println("Fim")
-
 }
-
-
