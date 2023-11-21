@@ -3,7 +3,7 @@ package models
 import (
 	"fmt"
 
-	"github.com/rpucca/rpucca/db"
+	"github.com/rpucca/db"
 )
 
 type strProduto struct {
@@ -49,7 +49,6 @@ func BuscaTodosOsProdutos() []strProduto {
 		}
 	*/
 
-	templ.ExecuteTemplate(w, "Index", array_produto)
 	defer db.Close() //com defer o close é adiada até que a função exemplo() seja concluída.
 	fmt.Println("Fim")
 }
