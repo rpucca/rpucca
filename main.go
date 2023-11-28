@@ -5,7 +5,7 @@ import (
 	"html/template" //biblioteca para processar e renderizar templates HTML
 	"net/http"      //biblioteca funcionalidades para criar servidores HTTP
 
-	"github.com/rpucca/models"
+	"github.com/Alura/models"
 )
 
 var templ = template.Must(template.ParseGlob("templates/*.html")) //encapsula todos os templates (*.html) renderizando e retornando o template e msg de erro se houver.

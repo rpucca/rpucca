@@ -3,10 +3,10 @@ package models
 import (
 	"fmt"
 
-	"github.com/rpucca/db"
+	"github.com/rpucca/rpucca/db"
 )
 
-type strProduto struct {
+type structProduto struct {
 	Id         int
 	Nome       string
 	Descricao  string
@@ -14,22 +14,22 @@ type strProduto struct {
 	Quantidade int
 }
 
-func BuscaTodosOsProdutos() []strProduto {
+func BuscaTodosOsProdutos() []structProduto {
 	var int_id, int_quantidade int
 	var str_nome, str_descricao string
 	var flo_preco float64
-	linha_produto := strProduto{}   //instancia da estrutura produtos
-	array_produto := []strProduto{} //array de produtos
+	linha_produto := structProduto{}   //instancia da estrutura produtos
+	array_produto := []structProduto{} //array de produtos
 	db := db.ConectaComBancoDeDados()
 
-	fmt.Println("Início")
+	fmt.Println("Início BuscaTodosOsProdutos")
 	selectDeTodosOsProdutos, registro := db.Query("select * from produtos")
 	if registro != nil {
 		panic(registro.Error())
 	}
 
 	for selectDeTodosOsProdutos.Next() {
-		defer fmt.Println("Meio")
+		defer fmt.Println("Meio BuscaTodosOsProdutos")
 
 		registro = selectDeTodosOsProdutos.Scan(&int_id, &str_nome, &str_descricao, &flo_preco, &int_quantidade)
 		if registro != nil {
@@ -49,6 +49,7 @@ func BuscaTodosOsProdutos() []strProduto {
 		}
 	*/
 
+	fmt.Println("Fim BuscaTodosOsProdutos")
 	defer db.Close() //com defer o close é adiada até que a função exemplo() seja concluída.
-	fmt.Println("Fim")
+	return array_produto
 }
