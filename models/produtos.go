@@ -3,7 +3,7 @@ package models
 import (
 	"fmt"
 
-	"github.com/rpucca/rpucca/db"
+	"github.com\rpucca\rpucca\db"
 )
 
 type structProduto struct {
